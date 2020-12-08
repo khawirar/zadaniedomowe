@@ -1,0 +1,57 @@
+﻿<div class="form-group">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Przelicznik walut</label>
+            <input type="number" class="form-control" style="max-width: 130px;" placeholder="$" @bind="Dolar" @bind:event="oninput" /> 
+            <input type="number" class="form-control" style="max-width: 130px;" placeholder="przelicznik" @bind="Przelicznik" @bind:event="oninput"/> 
+        </div>
+    </div>
+
+    @if (dolar != null)
+    {
+        <div class="row blockquote mt-5">
+            <span>@dolar $ to @zloty zł</span>
+        </div>
+    }
+</div>
+
+
+
+@code {
+
+    double? dolar = null;
+    double? zloty = null;
+    double? przelicznik = null;
+
+    public double? Dolar
+    {
+        get => dolar;
+        set
+        {
+            dolar = value;
+            ConvertCurrency();
+        }
+    }
+
+    public double? Przelicznik
+    {
+        get => przelicznik;
+        set
+        {
+            przelicznik = value;
+            ConvertCurrency();
+        }
+    }
+
+    private void ConvertCurrency()
+    {
+        if(przelicznik == null)
+        {
+            przelicznik = 3.96;
+        }
+
+        zloty = dolar * przelicznik;
+
+    }
+
+}
